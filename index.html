@@ -122,11 +122,12 @@
         .envelope-wrapper.fade-out {
             opacity: 0;
             visibility: hidden;
+            pointer-events: none;
         }
 
         .main-content {
             opacity: 0;
-            transition: opacity 1s ease 2.2s;
+            transition: opacity 1s ease;
             width: 100%;
             display: flex;
             justify-content: center;
@@ -327,121 +328,141 @@
             opacity: 0.8;
         }
     
-        /* 마음 전하실 곳 */
+        /* 계좌 섹션 & 아코디언 스타일 */
         .account-section {
-            background-color: #FAF6F0;
+            background-color: #f8f8f8;
+            padding: 60px 20px;
         }
-    
+
         .account-header {
             text-align: center;
             margin-bottom: 30px;
         }
-    
-        .account-header .heart-icon {
-            font-size: 20px;
-            margin-bottom: 8px;
-            display: block;
-        }
-    
+
         .account-header h2 {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 500;
-            margin: 0 0 16px 0;
-            letter-spacing: 1px;
+            margin-bottom: 12px;
+            color: #222;
         }
-    
+
         .account-subtext {
             font-size: 13px;
-            color: #555;
+            color: #777;
             line-height: 1.6;
         }
-    
-        .account-tabs {
-            display: flex;
-            border-bottom: 1px solid #E5E0DA;
-            margin-bottom: 25px;
+
+        /* 아코디언 박스 */
+        .accordion-item {
+            background-color: #ffffff;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            overflow: hidden;
         }
-    
-        .tab-btn {
-            flex: 1;
-            padding: 12px 0;
+
+        .accordion-header {
+            width: 100%;
+            padding: 20px;
             background: none;
             border: none;
-            font-size: 15px;
-            color: #aaa;
-            cursor: pointer;
-            position: relative;
-        }
-    
-        .tab-btn.active {
-            color: #333;
-            font-weight: bold;
-        }
-    
-        .tab-btn.active::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background-color: #B59B93;
-        }
-    
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-    
-        .person-card {
-            margin-bottom: 22px;
-            text-align: left;
-        }
-    
-        .person-info {
-            display: flex;
-            align-items: center;
-            margin-bottom: 8px;
-            gap: 8px;
-        }
-    
-        .person-info .role { font-size: 13px; color: #777; width: 32px; }
-        .person-info .name { font-size: 16px; font-weight: bold; color: #222; }
-    
-        .icon-btn.phone-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background-color: #E8E2DB;
-            text-decoration: none;
-            font-size: 12px;
-        }
-    
-        .pay-btn {
-            margin-left: auto;
-            font-size: 11px;
-            background-color: #FEE500;
-            color: #191919;
-            padding: 4px 10px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-    
-        .account-box {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #EFE9E3;
-            padding: 12px 16px;
-            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 500;
+            color: #333;
             cursor: pointer;
         }
-    
-        .account-text { font-size: 14px; color: #333; }
-        .copy-icon { opacity: 0.5; font-size: 14px; background: none; border: none; }
-    
+
+        .arrow-icon {
+            font-size: 12px;
+            color: #999;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-item.active .arrow-icon {
+            transform: rotate(180deg);
+        }
+
+        /* 열리고 닫히는 애니메이션 영역 */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease-out;
+            background-color: #fff0f3;
+        }
+
+        .accordion-inner {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* 개별 인물 카드 */
+        .acc-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+        }
+
+        .acc-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .acc-card-header .role {
+            font-size: 13px;
+            color: #444;
+        }
+
+        .acc-card-header .name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #111;
+        }
+
+        /* 계좌 정보 박스 */
+        .acc-box {
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            padding: 12px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .bank-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .bank-name {
+            font-size: 11px;
+            color: #888;
+        }
+
+        .account-number {
+            font-size: 13px;
+            color: #333;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .copy-btn {
+            background: none;
+            border: none;
+            font-size: 14px;
+            opacity: 0.6;
+            cursor: pointer;
+        }
+
         .toast-popup {
             visibility: hidden;
             min-width: 220px;
@@ -538,95 +559,120 @@
                 </div>
             </section>
 
+            <!-- 계좌 섹션 -->
             <section class="account-section">
                 <div class="account-header">
-                    <div class="heart-icon">🖤</div>
-                    <h2 class="serif">마음 받는 곳</h2>
+                    <h2 class="serif">마음 전하실 곳</h2>
                     <p class="account-subtext">
-                        전해주시는 축하의 마음은 소중하게 간직하여<br>
-                        좋은 부부의 모습으로 보답하겠습니다.
+                        참석이 어려우신 분들을 위해 기재했습니다.<br>
+                        너그러운 마음으로 양해 부탁드립니다.
                     </p>
                 </div>
-            
-                <div class="account-tabs">
-                    <button type="button" class="tab-btn active" onclick="switchTab('groom')">신랑 측</button>
-                    <button type="button" class="tab-btn" onclick="switchTab('bride')">신부 측</button>
+
+                <!-- 신랑측 아코디언 -->
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>신랑측에게</span>
+                        <span class="arrow-icon">∨</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="accordion-inner">
+                            <!-- 신랑 -->
+                            <div class="acc-card">
+                                <div class="acc-card-header">
+                                    <span class="role">신랑</span>
+                                    <span class="name">상훈</span>
+                                </div>
+                                <div class="acc-box" onclick="copyAccount('하나은행 593-910418-97107')">
+                                    <div class="bank-info">
+                                        <span class="bank-name">하나은행</span>
+                                        <span class="account-number">593-910418-97107</span>
+                                    </div>
+                                    <button type="button" class="copy-btn" title="복사">📋</button>
+                                </div>
+                            </div>
+                            <!-- 신랑 아버지 -->
+                            <div class="acc-card">
+                                <div class="acc-card-header">
+                                    <span class="role">신랑 아버지</span>
+                                    <span class="name">정우</span>
+                                </div>
+                                <div class="acc-box" onclick="copyAccount('하나은행 144-891640-05907')">
+                                    <div class="bank-info">
+                                        <span class="bank-name">하나은행</span>
+                                        <span class="account-number">144-891640-05907</span>
+                                    </div>
+                                    <button type="button" class="copy-btn" title="복사">📋</button>
+                                </div>
+                            </div>
+                            <!-- 신랑 어머니 -->
+                            <div class="acc-card">
+                                <div class="acc-card-header">
+                                    <span class="role">신랑 어머니</span>
+                                    <span class="name">애란</span>
+                                </div>
+                                <div class="acc-box" onclick="copyAccount('우리은행 1002-541-294645')">
+                                    <div class="bank-info">
+                                        <span class="bank-name">우리은행</span>
+                                        <span class="account-number">1002-541-294645</span>
+                                    </div>
+                                    <button type="button" class="copy-btn" title="복사">📋</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            
-                <div id="groom-account" class="tab-content active">
-                    <div class="person-card">
-                        <div class="person-info">
-                            <span class="role">신랑</span>
-                            <span class="name">상훈</span>
-                            <a href="tel:01024221456" class="icon-btn phone-btn" title="전화걸기">📞</a>
-                            <a href="https://qr.kakaopay.com/" target="_blank" class="pay-btn">💬 pay</a>
-                        </div>
-                        <div class="account-box" onclick="copyAccount('카카오뱅크 1111-22-333333')">
-                            <span class="account-text">카카오뱅크 1111-22-333333</span>
-                            <button type="button" class="copy-icon" title="복사">📋</button>
-                        </div>
-                    </div>
-            
-                    <div class="person-card">
-                        <div class="person-info">
-                            <span class="role">신랑 아버지</span>
-                            <span class="name">정우</span>
-                            <a href="tel:01000000000" class="icon-btn phone-btn" title="전화걸기">📞</a>
-                        </div>
-                        <div class="account-box" onclick="copyAccount('국민은행 123-456-789012')">
-                            <span class="account-text">국민은행 123-456-789012</span>
-                            <button type="button" class="copy-icon" title="복사">📋</button>
-                        </div>
-                    </div>
-            
-                    <div class="person-card">
-                        <div class="person-info">
-                            <span class="role">신랑 어머니</span>
-                            <span class="name">애란</span>
-                            <a href="tel:01000000000" class="icon-btn phone-btn" title="전화걸기">📞</a>
-                        </div>
-                        <div class="account-box" onclick="copyAccount('신한은행 987-654-321098')">
-                            <span class="account-text">신한은행 987-654-321098</span>
-                            <button type="button" class="copy-icon" title="복사">📋</button>
-                        </div>
-                    </div>
-                </div>
-            
-                <div id="bride-account" class="tab-content">
-                    <div class="person-card">
-                        <div class="person-info">
-                            <span class="role">신부</span>
-                            <span class="name">연희</span>
-                            <a href="tel:01040976874" class="icon-btn phone-btn" title="전화걸기">📞</a>
-                            <a href="https://qr.kakaopay.com/" target="_blank" class="pay-btn">💬 pay</a>
-                        </div>
-                        <div class="account-box" onclick="copyAccount('신한은행 110-437-813215')">
-                            <span class="account-text">신한은행 110-437-813215</span>
-                            <button type="button" class="copy-icon" title="복사">📋</button>
-                        </div>
-                    </div>
-            
-                    <div class="person-card">
-                        <div class="person-info">
-                            <span class="role">신부 아버지</span>
-                            <span class="name">형택</span>
-                            <a href="tel:01000000000" class="icon-btn phone-btn" title="전화걸기">📞</a>
-                        </div>
-                        <div class="account-box" onclick="copyAccount('우리은행 1002-123-456789')">
-                            <span class="account-text">우리은행 1002-123-456789</span>
-                            <button type="button" class="copy-icon" title="복사">📋</button>
-                        </div>
-                    </div>
-            
-                    <div class="person-card">
-                        <div class="person-info">
-                            <span class="role">신부 어머니</span>
-                            <span class="name">인균</span>
-                            <a href="tel:01072120700" class="icon-btn phone-btn" title="전화걸기">📞</a>
-                        </div>
-                        <div class="account-box" onclick="copyAccount('하나은행 567-890-123456')">
-                            <span class="account-text">하나은행 567-890-123456</span>
-                            <button type="button" class="copy-icon" title="복사">📋</button>
+
+                <!-- 신부측 아코디언 -->
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>신부측에게</span>
+                        <span class="arrow-icon">∨</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="accordion-inner">
+                            <!-- 신부 -->
+                            <div class="acc-card">
+                                <div class="acc-card-header">
+                                    <span class="role">신부</span>
+                                    <span class="name">연희</span>
+                                </div>
+                                <div class="acc-box" onclick="copyAccount('신한은행 110-437-813215')">
+                                    <div class="bank-info">
+                                        <span class="bank-name">신한은행</span>
+                                        <span class="account-number">110-437-813215</span>
+                                    </div>
+                                    <button type="button" class="copy-btn" title="복사">📋</button>
+                                </div>
+                            </div>
+                            <!-- 신부 아버지 -->
+                            <div class="acc-card">
+                                <div class="acc-card-header">
+                                    <span class="role">신부 아버지</span>
+                                    <span class="name">형택</span>
+                                </div>
+                                <div class="acc-box" onclick="copyAccount('기업은행 43900-9869-01-016')">
+                                    <div class="bank-info">
+                                        <span class="bank-name">기업은행</span>
+                                        <span class="account-number">43900-9869-01-016</span>
+                                    </div>
+                                    <button type="button" class="copy-btn" title="복사">📋</button>
+                                </div>
+                            </div>
+                            <!-- 신부 어머니 -->
+                            <div class="acc-card">
+                                <div class="acc-card-header">
+                                    <span class="role">신부 어머니</span>
+                                    <span class="name">인균</span>
+                                </div>
+                                <div class="acc-box" onclick="copyAccount('농협은행 201017-52-114748')">
+                                    <div class="bank-info">
+                                        <span class="bank-name">농협은행</span>
+                                        <span class="account-number">201017-52-114748</span>
+                                    </div>
+                                    <button type="button" class="copy-btn" title="복사">📋</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -654,20 +700,17 @@
             }, 2800);
         });
 
-        // 계좌 탭 전환
-        function switchTab(type) {
-            const tabs = document.querySelectorAll('.tab-btn');
-            const contents = document.querySelectorAll('.tab-content');
-        
-            tabs.forEach(tab => tab.classList.remove('active'));
-            contents.forEach(content => content.classList.remove('active'));
-        
-            if (type === 'groom') {
-                tabs[0].classList.add('active');
-                document.getElementById('groom-account').classList.add('active');
+        // 개별 수동 개폐 처리 (여러 개 동시 열기 가능)
+        function toggleAccordion(button) {
+            const item = button.parentElement;
+            const content = item.querySelector('.accordion-content');
+            
+            if (item.classList.contains('active')) {
+                item.classList.remove('active');
+                content.style.maxHeight = null;
             } else {
-                tabs[1].classList.add('active');
-                document.getElementById('bride-account').classList.add('active');
+                item.classList.add('active');
+                content.style.maxHeight = content.scrollHeight + "px";
             }
         }
         
