@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>WEDDING INVITATION</title>
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="OUR WEDDING DAY">
+    <meta property="og:description" content="2026. 10. 24. SAT">
+    <meta property="og:image" content="https://picsum.photos/800/1200">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,600;1,6..96,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+
+    <style>
+        /* ==========================================
+           1. 편지봉투 오프닝 애니메이션 스타일
+           ========================================== */
+        body.no-scroll {
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .envelope-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #0d0d0d;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            perspective: 1000px;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .envelope {
+            position: relative;
+            width: 340px;
+            height: 230px;
+            background-color: #e0ded6;
+            border-radius: 4px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            transform-style: preserve-3d;
+        }
+
+        .flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 170px solid transparent;
+            border-right: 170px solid transparent;
+            border-top: 130px solid #c8c5bb;
+            transform-origin: top;
+            z-index: 3;
+            animation: openFlap 1s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards;
+        }
+
+        .pocket {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 170px solid #d3cfc4;
+            border-right: 170px solid #d3cfc4;
+            border-bottom: 130px solid #c0bcb0;
+            border-radius: 0 0 4px 4px;
+            z-index: 3;
+        }
+
+        .letter {
+            position: absolute;
+            bottom: 10px;
+            left: 20px;
+            width: 300px;
+            height: 200px;
+            background-color: #f7f6f2;
+            border-radius: 4px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            z-index: 2;
+            animation: liftLetter 1.2s cubic-bezier(0.25, 1, 0.5, 1) 1.4s forwards;
+        }
+
+        .letter-preview {
+            margin-top: 40px;
+        }
+
+        .letter-preview .sub-title {
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        .letter-preview .names {
+            font-size: 20px;
+            font-weight: 500;
+            color: #222;
+        }
+
+        @keyframes openFlap {
+            0% { transform: rotateX(0deg); z-index: 3; }
+            100% { transform: rotateX(180deg); z-index: 1; }
+        }
+
+        @keyframes liftLetter {
+            0% { transform: translateY(0) scale(1); z-index: 2; }
+            60% { transform: translateY(-160px) scale(1.05); z-index: 4; }
+            100% { transform: translateY(-140px) scale(1.1); z-index: 4; }
+        }
+
+        .envelope-wrapper.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .main-content {
+            opacity: 0;
+            transition: opacity 1s ease 2.2s;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .main-content.active {
+            opacity: 1;
+        }
+
+        /* ==========================================
+           2. 글로벌 리셋 & 베이스 스타일
+           ========================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+    
+        body {
+            font-family: "Pretendard Variable", Pretendard, sans-serif;
+            background-color: #0d0d0d;
+            color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            word-break: keep-all;
+        }
+    
+        .serif {
+            font-family: 'Bodoni Moda', serif;
+        }
+    
+        .wrapper {
+            width: 100%;
+            max-width: 430px;
+            background-color: #f7f6f2;
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+            overflow-x: hidden;
+        }
+    
+        section {
+            padding: 70px 24px;
+            border-bottom: 1px solid #e2e0d8;
+        }
+    
+        .section-label {
+            font-size: 11px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #888888;
+            margin-bottom: 24px;
+            display: block;
+        }
+    
+        /* 메인 히어로 */
+        .hero {
+            padding: 40px 20px 60px 20px;
+        }
+    
+        .hero-top-text {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 20px;
+            padding: 0 4px;
+        }
+    
+        .hero-top-text span {
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: #666;
+        }
+    
+        .hero-img-box {
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            overflow: hidden;
+            background-color: #ddd;
+            margin-bottom: 24px;
+        }
+    
+        .hero-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) contrast(1.05);
+            pointer-events: none;
+        }
+    
+        .hero-title {
+            text-align: center;
+        }
+    
+        .hero-title h1 {
+            font-size: 38px;
+            font-weight: 400;
+            letter-spacing: -0.5px;
+            line-height: 1.1;
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+    
+        .hero-title p {
+            font-size: 13px;
+            letter-spacing: 3px;
+            color: #777;
+        }
+    
+        /* 초대글 & 갤러리 */
+        .invitation {
+            text-align: center;
+        }
+    
+        .invitation p {
+            font-size: 15px;
+            line-height: 2.2;
+            color: #444444;
+            font-weight: 300;
+            margin-bottom: 40px;
+        }
+    
+        .couple-names {
+            font-size: 17px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            color: #111;
+        }
+    
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+    
+        .gallery-item {
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            overflow: hidden;
+            background-color: #eee;
+        }
+    
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%);
+            pointer-events: none;
+        }
+    
+        .gallery-item.main-cut {
+            grid-column: span 3;
+            aspect-ratio: 1 / 1;
+            margin-bottom: 4px;
+        }
+    
+        /* 장소 정보 */
+        .location-info {
+            margin-bottom: 28px;
+        }
+    
+        .location-info h3 {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #111;
+        }
+    
+        .location-info p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.7;
+        }
+    
+        .map-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+    
+        .map-btn {
+            display: block;
+            text-align: center;
+            padding: 13px 0;
+            background-color: #1a1a1a;
+            color: #f7f6f2;
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            border-radius: 2px;
+            transition: opacity 0.2s;
+        }
+    
+        .map-btn:active {
+            opacity: 0.8;
+        }
+    
+        /* 마음 전하실 곳 */
+        .account-section {
+            background-color: #FAF6F0;
+        }
+    
+        .account-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+    
+        .account-header .heart-icon {
+            font-size: 20px;
+            margin-bottom: 8px;
+            display: block;
+        }
+    
+        .account-header h2 {
+            font-size: 22px;
+            font-weight: 500;
+            margin: 0 0 16px 0;
+            letter-spacing: 1px;
+        }
+    
+        .account-subtext {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.6;
+        }
+    
+        .account-tabs {
+            display: flex;
+            border-bottom: 1px solid #E5E0DA;
+            margin-bottom: 25px;
+        }
+    
+        .tab-btn {
+            flex: 1;
+            padding: 12px 0;
+            background: none;
+            border: none;
+            font-size: 15px;
+            color: #aaa;
+            cursor: pointer;
+            position: relative;
+        }
+    
+        .tab-btn.active {
+            color: #333;
+            font-weight: bold;
+        }
+    
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #B59B93;
+        }
+    
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+    
+        .person-card {
+            margin-bottom: 22px;
+            text-align: left;
+        }
+    
+        .person-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            gap: 8px;
+        }
+    
+        .person-info .role { font-size: 13px; color: #777; width: 32px; }
+        .person-info .name { font-size: 16px; font-weight: bold; color: #222; }
+    
+        .icon-btn.phone-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background-color: #E8E2DB;
+            text-decoration: none;
+            font-size: 12px;
+        }
+    
+        .pay-btn {
+            margin-left: auto;
+            font-size: 11px;
+            background-color: #FEE500;
+            color: #191919;
+            padding: 4px 10px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    
+        .account-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #EFE9E3;
+            padding: 12px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+    
+        .account-text { font-size: 14px; color: #333; }
+        .copy-icon { opacity: 0.5; font-size: 14px; background: none; border: none; }
+    
+        .toast-popup {
+            visibility: hidden;
+            min-width: 220px;
+            background-color: rgba(40, 40, 40, 0.88);
+            color: #fff;
+            text-align: center;
+            border-radius: 25px;
+            padding: 12px 20px;
+            position: fixed;
+            z-index: 9999;
+            left: 50%;
+            bottom: 40px;
+            transform: translateX(-50%);
+            font-size: 13px;
+            opacity: 0;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+    
+        .toast-popup.show {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div id="envelope-wrapper" class="envelope-wrapper">
+        <div class="envelope">
+            <div class="flap"></div>
+            <div class="pocket"></div>
+            <div class="letter">
+                <div class="letter-preview">
+                    <p class="sub-title">WEDDING INVITATION</p>
+                    <h1 class="names">이상훈 & 신연희</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <main id="main-content" class="main-content">
+        <div class="wrapper">
+            <section class="hero">
+                <div class="hero-top-text serif">
+                    <span>ISSUE NO. 10</span>
+                    <span>2026 / 10 / 24</span>
+                </div>
+                <div class="hero-img-box">
+                    <img src="./images/main.jpg" alt="Wedding Film">
+                </div>
+                <div class="hero-title">
+                    <h1 class="serif">The Wedding Day</h1>
+                    <p class="serif">GROOM & BRIDE</p>
+                </div>
+            </section>
+
+            <section class="invitation">
+                <span class="section-label serif">Invitation</span>
+                <p>
+                    결이 비슷한 두 사람이 만나<br>
+                    같은 계절을 함께 맞이하려 합니다.<br><br>
+                    저희의 소중한 시작을 기록하는 자리에<br>
+                    소중한 분들을 모십니다.
+                </p>
+                <div class="couple-names">이상훈 &nbsp;—&nbsp; 신연희</div>
+            </section>
+
+            <section class="gallery">
+                <span class="section-label serif">Editorial Gallery</span>
+                <div class="gallery-grid">
+                    <div class="gallery-item main-cut">
+                        <img src="https://picsum.photos/800/800?random=1" alt="Main Film Cut">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://picsum.photos/600/800?random=2" alt="Film Cut 1">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://picsum.photos/600/800?random=3" alt="Film Cut 2">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://picsum.photos/600/800?random=4" alt="Film Cut 3">
+                    </div>
+                </div>
+            </section>
+
+            <section class="location">
+                <span class="section-label serif">Location</span>
+                <div class="location-info">
+                    <h3>틸티드한남</h3>
+                    <p>서울특별시 용산구 한남대로 150-10</p>
+                </div>
+                <div class="map-buttons">
+                    <a href="https://map.naver.com" target="_blank" class="map-btn">NAVER</a>
+                    <a href="https://map.kakao.com" target="_blank" class="map-btn">KAKAO</a>
+                    <a href="https://tmap.co.kr" target="_blank" class="map-btn">TMAP</a>
+                </div>
+            </section>
+
+            <section class="account-section">
+                <div class="account-header">
+                    <div class="heart-icon">🖤</div>
+                    <h2 class="serif">마음 받는 곳</h2>
+                    <p class="account-subtext">
+                        전해주시는 축하의 마음은 소중하게 간직하여<br>
+                        좋은 부부의 모습으로 보답하겠습니다.
+                    </p>
+                </div>
+            
+                <div class="account-tabs">
+                    <button type="button" class="tab-btn active" onclick="switchTab('groom')">신랑 측</button>
+                    <button type="button" class="tab-btn" onclick="switchTab('bride')">신부 측</button>
+                </div>
+            
+                <div id="groom-account" class="tab-content active">
+                    <div class="person-card">
+                        <div class="person-info">
+                            <span class="role">신랑</span>
+                            <span class="name">상훈</span>
+                            <a href="tel:01024221456" class="icon-btn phone-btn" title="전화걸기">📞</a>
+                            <a href="https://qr.kakaopay.com/" target="_blank" class="pay-btn">💬 pay</a>
+                        </div>
+                        <div class="account-box" onclick="copyAccount('카카오뱅크 1111-22-333333')">
+                            <span class="account-text">카카오뱅크 1111-22-333333</span>
+                            <button type="button" class="copy-icon" title="복사">📋</button>
+                        </div>
+                    </div>
+            
+                    <div class="person-card">
+                        <div class="person-info">
+                            <span class="role">신랑 아버지</span>
+                            <span class="name">정우</span>
+                            <a href="tel:01000000000" class="icon-btn phone-btn" title="전화걸기">📞</a>
+                        </div>
+                        <div class="account-box" onclick="copyAccount('국민은행 123-456-789012')">
+                            <span class="account-text">국민은행 123-456-789012</span>
+                            <button type="button" class="copy-icon" title="복사">📋</button>
+                        </div>
+                    </div>
+            
+                    <div class="person-card">
+                        <div class="person-info">
+                            <span class="role">신랑 어머니</span>
+                            <span class="name">애란</span>
+                            <a href="tel:01000000000" class="icon-btn phone-btn" title="전화걸기">📞</a>
+                        </div>
+                        <div class="account-box" onclick="copyAccount('신한은행 987-654-321098')">
+                            <span class="account-text">신한은행 987-654-321098</span>
+                            <button type="button" class="copy-icon" title="복사">📋</button>
+                        </div>
+                    </div>
+                </div>
+            
+                <div id="bride-account" class="tab-content">
+                    <div class="person-card">
+                        <div class="person-info">
+                            <span class="role">신부</span>
+                            <span class="name">연희</span>
+                            <a href="tel:01040976874" class="icon-btn phone-btn" title="전화걸기">📞</a>
+                            <a href="https://qr.kakaopay.com/" target="_blank" class="pay-btn">💬 pay</a>
+                        </div>
+                        <div class="account-box" onclick="copyAccount('신한은행 110-437-813215')">
+                            <span class="account-text">신한은행 110-437-813215</span>
+                            <button type="button" class="copy-icon" title="복사">📋</button>
+                        </div>
+                    </div>
+            
+                    <div class="person-card">
+                        <div class="person-info">
+                            <span class="role">신부 아버지</span>
+                            <span class="name">형택</span>
+                            <a href="tel:01000000000" class="icon-btn phone-btn" title="전화걸기">📞</a>
+                        </div>
+                        <div class="account-box" onclick="copyAccount('우리은행 1002-123-456789')">
+                            <span class="account-text">우리은행 1002-123-456789</span>
+                            <button type="button" class="copy-icon" title="복사">📋</button>
+                        </div>
+                    </div>
+            
+                    <div class="person-card">
+                        <div class="person-info">
+                            <span class="role">신부 어머니</span>
+                            <span class="name">인균</span>
+                            <a href="tel:01072120700" class="icon-btn phone-btn" title="전화걸기">📞</a>
+                        </div>
+                        <div class="account-box" onclick="copyAccount('하나은행 567-890-123456')">
+                            <span class="account-text">하나은행 567-890-123456</span>
+                            <button type="button" class="copy-icon" title="복사">📋</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div id="toast" class="toast-popup">계좌번호가 복사되었습니다.</div>
+
+    <script>
+        // 오프닝 애니메이션 제어
+        document.addEventListener("DOMContentLoaded", function () {
+            document.body.classList.add("no-scroll");
+        
+            const envelopeWrapper = document.getElementById("envelope-wrapper");
+            const mainContent = document.getElementById("main-content");
+        
+            setTimeout(() => {
+                mainContent.classList.add("active");
+            }, 2000);
+        
+            setTimeout(() => {
+                envelopeWrapper.classList.add("fade-out");
+                document.body.classList.remove("no-scroll");
+            }, 2800);
+        });
+
+        // 계좌 탭 전환
+        function switchTab(type) {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const contents = document.querySelectorAll('.tab-content');
+        
+            tabs.forEach(tab => tab.classList.remove('active'));
+            contents.forEach(content => content.classList.remove('active'));
+        
+            if (type === 'groom') {
+                tabs[0].classList.add('active');
+                document.getElementById('groom-account').classList.add('active');
+            } else {
+                tabs[1].classList.add('active');
+                document.getElementById('bride-account').classList.add('active');
+            }
+        }
+        
+        // 클립보드 복사 & 토스트 알림
+        function copyAccount(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast();
+                }).catch(() => {
+                    fallbackCopy(text);
+                });
+            } else {
+                fallbackCopy(text);
+            }
+        }
+        
+        function fallbackCopy(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                showToast();
+            } catch (err) {
+                alert('계좌번호 복사에 실패했습니다.');
+            }
+            document.body.removeChild(textArea);
+        }
+        
+        function showToast() {
+            const toast = document.getElementById("toast");
+            toast.classList.add("show");
+            setTimeout(function() {
+                toast.classList.remove("show");
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
