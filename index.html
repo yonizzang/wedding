@@ -16,157 +16,78 @@
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
 
     <style>
-        /* style.css 파일 내부 */
-
-/* 편지봉투 영역 감싸는 컨테이너 */
-.envelope-container {
-  position: relative;
-  width: 100%;
-  max-width: 480px; /* 모바일 화면에 맞춘 최대 너비 설정 */
-  margin: 0 auto;   /* 화면 중앙 정렬 */
-}
-
-/* 닫힌 편지봉투 이미지 스타일 */
-.envelope-img {
-  width: 100%;       /* 컨테이너 너비에 맞게 조절 */
-  height: auto;      /* 비율 유지 */
-  display: block;
-}
-
-/* 안에 들어가는 편지지 카드 스타일 (필요 시) */
-.card-img {
-  width: 80%;
-  height: auto;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  transition: all 0.5s ease; /* 열리는 애니메이션 효과 부여 시 */
-}
         /* ==========================================
-   1. 기존 편지봉투 오프닝 애니메이션 스타일 (주석 처리됨)
-   ========================================== */
+           1. 편지봉투 오프닝 오버레이 스타일 (수정 및 정돈)
+           ========================================== */
+        body.no-scroll {
+            overflow: hidden;
+            height: 100vh;
+        }
 
-    /*
-    body.no-scroll {
-    overflow: hidden;
-    height: 100vh;
-}
+        /* 풀스크린 오프닝 백그라운드 오버레이 */
+        .envelope-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #0d0d0d;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+            cursor: pointer;
+        }
 
-.envelope-wrapper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: #0d0d0d;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    perspective: 1000px;
-    transition: opacity 0.8s ease, visibility 0.8s ease;
-}
+        /* 편지봉투 영역 감싸는 컨테이너 */
+        .envelope-container {
+            position: relative;
+            width: 90%;
+            max-width: 420px; /* 모바일 화면에 맞춘 너비 */
+            margin: 0 auto;
+            text-align: center;
+        }
 
-.envelope {
-    position: relative;
-    width: 340px;
-    height: 230px;
-    background-color: #e0ded6;
-    border-radius: 4px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-    transform-style: preserve-3d;
-}
+        /* 닫힌 편지봉투 이미지 스타일 */
+        .envelope-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
 
-.flap {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 0;
-    border-left: 170px solid transparent;
-    border-right: 170px solid transparent;
-    border-top: 130px solid #c8c5bb;
-    transform-origin: top;
-    z-index: 3;
-    animation: openFlap 1s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards;
-}
+        /* 안에 들어가는 편지지 카드 스타일 (필요 시) */
+        .card-img {
+            width: 85%;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            z-index: 2;
+        }
 
-.pocket {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 0;
-    border-left: 170px solid #d3cfc4;
-    border-right: 170px solid #d3cfc4;
-    border-bottom: 130px solid #c0bcb0;
-    border-radius: 0 0 4px 4px;
-    z-index: 3;
-}
+        /* 페이드아웃 효과 (메인 화면 전환 시) */
+        .envelope-wrapper.fade-out {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
 
-.letter {
-    position: absolute;
-    bottom: 10px;
-    left: 20px;
-    width: 300px;
-    height: 200px;
-    background-color: #f7f6f2;
-    border-radius: 4px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    z-index: 2;
-    animation: liftLetter 1.2s cubic-bezier(0.25, 1, 0.5, 1) 1.4s forwards;
-}
+        /* 메인 컨텐츠 노출 및 기본 레이아웃 스타일 */
+        .main-content {
+            opacity: 0;
+            transition: opacity 1s ease;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
 
-.letter-preview {
-    margin-top: 40px;
-}
-
-.letter-preview .sub-title {
-    font-size: 11px;
-    letter-spacing: 3px;
-    color: #888;
-    margin-bottom: 8px;
-}
-
-.letter-preview .names {
-    font-size: 20px;
-    font-weight: 500;
-    color: #222;
-}
-
-@keyframes openFlap {
-    0% { transform: rotateX(0deg); z-index: 3; }
-    100% { transform: rotateX(180deg); z-index: 1; }
-}
-
-@keyframes liftLetter {
-    0% { transform: translateY(0) scale(1); z-index: 2; }
-    60% { transform: translateY(-160px) scale(1.05); z-index: 4; }
-    100% { transform: translateY(-140px) scale(1.1); z-index: 4; }
-}
-
-.envelope-wrapper.fade-out {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-}
-*/
-
-/* 메인 컨텐츠 노출 및 기본 레이아웃 스타일 (사용 유지) */
-.main-content {
-    opacity: 0;
-    transition: opacity 1s ease;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-.main-content.active {
-    opacity: 1;
-}
+        .main-content.active {
+            opacity: 1;
+        }
 
         /* ==========================================
            2. 글로벌 리셋 & 베이스 스타일
@@ -519,24 +440,15 @@
     </style>
 </head>
 <body>
-    <!-- 예시 HTML -->
-<div class="envelope-container">
-    <!-- 닫힌 봉투 -->
-    <img src="./assets/images/envelope-closed.png" alt="편지봉투" class="envelope-img">
-  </div>
-    <!-- <div id="envelope-wrapper" class="envelope-wrapper">
-        <div class="envelope">
-            <div class="flap"></div>
-            <div class="pocket"></div>
-            <div class="letter">
-                <div class="letter-preview">
-                    <p class="sub-title">WEDDING INVITATION</p>
-                    <h1 class="names">이상훈 & 신연희</h1>
-                </div>
-            </div>
+    <!-- 인덱스 인트로 오프닝 영역 (편지봉투) -->
+    <div id="envelope-wrapper" class="envelope-wrapper">
+        <div class="envelope-container">
+            <!-- 닫힌 봉투 이미지 (설정하신 상대경로 그대로 유지) -->
+            <img src="./assets/images/envelope-closed.png" alt="편지봉투" class="envelope-img">
         </div>
-    </div> -->
+    </div>
     
+    <!-- 메인 컨텐츠 영역 -->
     <main id="main-content" class="main-content">
         <div class="wrapper">
             <section class="hero">
@@ -726,17 +638,28 @@
             const envelopeWrapper = document.getElementById("envelope-wrapper");
             const mainContent = document.getElementById("main-content");
         
+            // 2초 뒤 메인 서서히 나타남
             setTimeout(() => {
-                mainContent.classList.add("active");
+                if (mainContent) mainContent.classList.add("active");
             }, 2000);
         
+            // 2.8초 뒤 편지봉투 페이드아웃 및 스크롤 해제
             setTimeout(() => {
-                envelopeWrapper.classList.add("fade-out");
+                if (envelopeWrapper) envelopeWrapper.classList.add("fade-out");
                 document.body.classList.remove("no-scroll");
             }, 2800);
+
+            // 사용자가 클릭 시 즉시 메인으로 넘어가도록 터치/클릭 이벤트 추가
+            if (envelopeWrapper) {
+                envelopeWrapper.addEventListener("click", function () {
+                    if (mainContent) mainContent.classList.add("active");
+                    envelopeWrapper.classList.add("fade-out");
+                    document.body.classList.remove("no-scroll");
+                });
+            }
         });
 
-        // 개별 수동 개폐 처리 (여러 개 동시 열기 가능)
+        // 개별 수동 개폐 처리 (아코디언)
         function toggleAccordion(button) {
             const item = button.parentElement;
             const content = item.querySelector('.accordion-content');
@@ -779,10 +702,12 @@
         
         function showToast() {
             const toast = document.getElementById("toast");
-            toast.classList.add("show");
-            setTimeout(function() {
-                toast.classList.remove("show");
-            }, 2000);
+            if (toast) {
+                toast.classList.add("show");
+                setTimeout(function() {
+                    toast.classList.remove("show");
+                }, 2000);
+            }
         }
     </script>
 </body>
