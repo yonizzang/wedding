@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>WEDDING INVITATION</title>
     
     <meta property="og:type" content="website">
@@ -17,26 +17,53 @@
 
     <style>
         /* ==========================================
-           1. 편지봉투 오프닝 오버레이 (피그마 프레임 비율 연출)
+           1. 글로벌 리셋 & 모바일 스크롤 고정
            ========================================== */
-        body.no-scroll {
-            overflow: hidden;
-            height: 100vh;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
+        body {
+            font-family: "Pretendard Variable", Pretendard, sans-serif;
+            background-color: #0d0d0d;
+            color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            min-height: 100dvh;
+            word-break: keep-all;
+        }
+
+        body.no-scroll {
+            overflow: hidden !important;
+            height: 100vh;
+            height: 100dvh;
+            touch-action: none;
+        }
+
+        /* ==========================================
+           2. 봉투 오프닝 오버레이 (아이폰 사파리 비침 방지 적용)
+           ========================================== */
         .envelope-wrapper {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
+            /* 아이폰 사파리 가변 주소창 및 safe-area 대응 */
             height: 100vh;
+            height: 100dvh;
             background-color: #0d0d0d;
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 9999;
+            z-index: 999999; /* 최상단 레이어 보장 */
             transition: opacity 0.8s ease, visibility 0.8s ease;
             cursor: pointer;
+            padding-bottom: env(safe-area-inset-bottom);
         }
 
         .envelope-container {
@@ -47,7 +74,6 @@
             text-align: center;
         }
 
-        /* 메인 봉투 컷 이미지 (규격 고정) */
         .envelope-img {
             width: 100%;
             height: auto;
@@ -56,7 +82,7 @@
             transition: transform 0.4s ease-out;
         }
 
-        /* 02 -> 03으로 스멀스멀 올라가는 애니메이션 클래스 */
+        /* 모션 애니메이션 */
         @keyframes floatUpWiggle {
             0% {
                 transform: translateY(12px) rotate(0deg);
@@ -85,39 +111,23 @@
             pointer-events: none;
         }
 
+        /* ==========================================
+           3. 메인 컨텐츠 숨김 및 노출 제어
+           ========================================== */
         .main-content {
+            display: none; /* 오프닝 동안 완전 숨김 (사파리 비침 원천 차단) */
             opacity: 0;
-            transition: opacity 1s ease;
+            transition: opacity 0.8s ease;
             width: 100%;
-            display: flex;
             justify-content: center;
         }
 
         .main-content.active {
+            display: flex; /* 애니메이션 종료 직전/직후 나타남 */
             opacity: 1;
         }
 
-        /* ==========================================
-           2. 글로벌 리셋 & 메인 페이지 스타일
-           ========================================== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-    
-        body {
-            font-family: "Pretendard Variable", Pretendard, sans-serif;
-            background-color: #0d0d0d;
-            color: #1a1a1a;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            word-break: keep-all;
-        }
-    
+        /* 메인 페이지 제반 스타일 */
         .serif {
             font-family: 'Bodoni Moda', serif;
         }
@@ -428,7 +438,7 @@
             border-radius: 25px;
             padding: 12px 20px;
             position: fixed;
-            z-index: 9999;
+            z-index: 9999999;
             left: 50%;
             bottom: 40px;
             transform: translateX(-50%);
@@ -444,14 +454,14 @@
     </style>
 </head>
 <body>
-    <!-- 봉투 오프닝 영역 -->
+    <!-- 1. 봉투 오프닝 영역 -->
     <div id="envelope-wrapper" class="envelope-wrapper">
         <div id="envelope-container" class="envelope-container">
             <img id="envelope-img" src="https://yonizzang.github.io/wedding/images/index_card_01.png" alt="편지봉투" class="envelope-img">
         </div>
     </div>
     
-    <!-- 메인 청첩장 컨텐츠 -->
+    <!-- 2. 메인 청첩장 컨텐츠 (초기에는 display: none 처리됨) -->
     <main id="main-content" class="main-content">
         <div class="wrapper">
             <section class="hero">
@@ -626,6 +636,7 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
+            // 시작 시 스크롤 제어
             document.body.classList.add("no-scroll");
         
             const envelopeWrapper = document.getElementById("envelope-wrapper");
@@ -633,7 +644,7 @@
             const envelopeImg = document.getElementById("envelope-img");
             const mainContent = document.getElementById("main-content");
 
-            // 이미지 미리 로드 (깜빡임 방지)
+            // 이미지 미리 로드 (전환 시 깜빡임 완전 방지)
             const imgOpen = new Image();
             imgOpen.src = "https://yonizzang.github.io/wedding/images/envelope-open.png";
             
@@ -649,41 +660,46 @@
                 if (isOpening) return;
                 isOpening = true;
 
-                // Step 1: index_card_01 -> envelope-open (뚜껑 열림)
+                // Step 1: index_card_01 -> envelope-open (봉투 뚜껑 열림)
                 envelopeImg.src = imgOpen.src;
 
-                // Step 2: envelope-open -> index_card_02 (편지 살짝 비침)
+                // Step 2: envelope-open -> index_card_02 (편지 살짝 나옴)
                 setTimeout(() => {
                     envelopeImg.src = imgCard02.src;
                 }, 300);
 
-                // Step 3: index_card_02 -> index_card_03 (스멀스멀 흔들리며 위로 이동 & index_card_03 위치 교체 고정!)
+                // Step 3: index_card_02 -> index_card_03 (편지가 끝까지 올라가 고정)
                 setTimeout(() => {
                     if (envelopeContainer) envelopeContainer.classList.add("wiggle-motion");
                     envelopeImg.src = imgCard03.src;
                 }, 600);
 
-                // Step 4: 메인 컨텐츠 노출 준비
+                // Step 4: 봉투 애니메이션이 모두 끝난 시점에 메인 컨텐츠 노출 (display: flex 전환)
                 setTimeout(() => {
-                    if (mainContent) mainContent.classList.add("active");
+                    if (mainContent) {
+                        mainContent.classList.add("active");
+                    }
                 }, 1400);
 
-                // Step 5: 오프닝 닫기 & 스크롤 해제
+                // Step 5: 봉투 오버레이 페이드아웃 및 스크롤 고정 해제
                 setTimeout(() => {
                     if (envelopeWrapper) envelopeWrapper.classList.add("fade-out");
                     document.body.classList.remove("no-scroll");
-                }, 2200);
+                }, 2000);
             }
 
+            // 클릭 시 시퀀스 실행
             if (envelopeWrapper) {
                 envelopeWrapper.addEventListener("click", playAnimationSequence);
             }
 
+            // 페이지 진입 후 자동 연출 실행
             setTimeout(() => {
                 playAnimationSequence();
             }, 500);
         });
 
+        // 아코디언 토글
         function toggleAccordion(button) {
             const item = button.parentElement;
             const content = item.querySelector('.accordion-content');
@@ -697,6 +713,7 @@
             }
         }
         
+        // 계좌 복사 기능
         function copyAccount(text) {
             if (navigator.clipboard && window.isSecureContext) {
                 navigator.clipboard.writeText(text).then(() => {
