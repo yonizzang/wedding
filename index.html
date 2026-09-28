@@ -6,7 +6,7 @@
     <title>WEDDING INVITATION</title>
     
     <meta property="og:type" content="website">
-    <meta property="og:title" content="상훈과 연희의 결혼식에 초대합니다">
+    <meta property="og:title" content="🎀연희와 상훈의 결혼식에 초대합니다🎀">
     <meta property="og:description" content="2026. 11. 21. SAT. 11:30AM. 틸티드한남">
     <meta property="og:image" content="https://yonizzang.github.io/wedding/images/og_ver2.jpg">
 
@@ -16,126 +16,157 @@
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
 
     <style>
+        /* style.css 파일 내부 */
+
+/* 편지봉투 영역 감싸는 컨테이너 */
+.envelope-container {
+  position: relative;
+  width: 100%;
+  max-width: 480px; /* 모바일 화면에 맞춘 최대 너비 설정 */
+  margin: 0 auto;   /* 화면 중앙 정렬 */
+}
+
+/* 닫힌 편지봉투 이미지 스타일 */
+.envelope-img {
+  width: 100%;       /* 컨테이너 너비에 맞게 조절 */
+  height: auto;      /* 비율 유지 */
+  display: block;
+}
+
+/* 안에 들어가는 편지지 카드 스타일 (필요 시) */
+.card-img {
+  width: 80%;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.5s ease; /* 열리는 애니메이션 효과 부여 시 */
+}
         /* ==========================================
-           1. 편지봉투 오프닝 애니메이션 스타일
-           ========================================== */
-        body.no-scroll {
-            overflow: hidden;
-            height: 100vh;
-        }
+   1. 기존 편지봉투 오프닝 애니메이션 스타일 (주석 처리됨)
+   ========================================== */
 
-        .envelope-wrapper {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: #0d0d0d;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            perspective: 1000px;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
-        }
+    /*
+    body.no-scroll {
+    overflow: hidden;
+    height: 100vh;
+}
 
-        .envelope {
-            position: relative;
-            width: 340px;
-            height: 230px;
-            background-color: #e0ded6;
-            border-radius: 4px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-            transform-style: preserve-3d;
-        }
+.envelope-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #0d0d0d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    perspective: 1000px;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
 
-        .flap {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 0;
-            border-left: 170px solid transparent;
-            border-right: 170px solid transparent;
-            border-top: 130px solid #c8c5bb;
-            transform-origin: top;
-            z-index: 3;
-            animation: openFlap 1s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards;
-        }
+.envelope {
+    position: relative;
+    width: 340px;
+    height: 230px;
+    background-color: #e0ded6;
+    border-radius: 4px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    transform-style: preserve-3d;
+}
 
-        .pocket {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 0;
-            border-left: 170px solid #d3cfc4;
-            border-right: 170px solid #d3cfc4;
-            border-bottom: 130px solid #c0bcb0;
-            border-radius: 0 0 4px 4px;
-            z-index: 3;
-        }
+.flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 170px solid transparent;
+    border-right: 170px solid transparent;
+    border-top: 130px solid #c8c5bb;
+    transform-origin: top;
+    z-index: 3;
+    animation: openFlap 1s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards;
+}
 
-        .letter {
-            position: absolute;
-            bottom: 10px;
-            left: 20px;
-            width: 300px;
-            height: 200px;
-            background-color: #f7f6f2;
-            border-radius: 4px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            z-index: 2;
-            animation: liftLetter 1.2s cubic-bezier(0.25, 1, 0.5, 1) 1.4s forwards;
-        }
+.pocket {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 170px solid #d3cfc4;
+    border-right: 170px solid #d3cfc4;
+    border-bottom: 130px solid #c0bcb0;
+    border-radius: 0 0 4px 4px;
+    z-index: 3;
+}
 
-        .letter-preview {
-            margin-top: 40px;
-        }
+.letter {
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    width: 300px;
+    height: 200px;
+    background-color: #f7f6f2;
+    border-radius: 4px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    z-index: 2;
+    animation: liftLetter 1.2s cubic-bezier(0.25, 1, 0.5, 1) 1.4s forwards;
+}
 
-        .letter-preview .sub-title {
-            font-size: 11px;
-            letter-spacing: 3px;
-            color: #888;
-            margin-bottom: 8px;
-        }
+.letter-preview {
+    margin-top: 40px;
+}
 
-        .letter-preview .names {
-            font-size: 20px;
-            font-weight: 500;
-            color: #222;
-        }
+.letter-preview .sub-title {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: #888;
+    margin-bottom: 8px;
+}
 
-        @keyframes openFlap {
-            0% { transform: rotateX(0deg); z-index: 3; }
-            100% { transform: rotateX(180deg); z-index: 1; }
-        }
+.letter-preview .names {
+    font-size: 20px;
+    font-weight: 500;
+    color: #222;
+}
 
-        @keyframes liftLetter {
-            0% { transform: translateY(0) scale(1); z-index: 2; }
-            60% { transform: translateY(-160px) scale(1.05); z-index: 4; }
-            100% { transform: translateY(-140px) scale(1.1); z-index: 4; }
-        }
+@keyframes openFlap {
+    0% { transform: rotateX(0deg); z-index: 3; }
+    100% { transform: rotateX(180deg); z-index: 1; }
+}
 
-        .envelope-wrapper.fade-out {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
+@keyframes liftLetter {
+    0% { transform: translateY(0) scale(1); z-index: 2; }
+    60% { transform: translateY(-160px) scale(1.05); z-index: 4; }
+    100% { transform: translateY(-140px) scale(1.1); z-index: 4; }
+}
 
-        .main-content {
-            opacity: 0;
-            transition: opacity 1s ease;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
+.envelope-wrapper.fade-out {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+*/
 
-        .main-content.active {
-            opacity: 1;
-        }
+/* 메인 컨텐츠 노출 및 기본 레이아웃 스타일 (사용 유지) */
+.main-content {
+    opacity: 0;
+    transition: opacity 1s ease;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.main-content.active {
+    opacity: 1;
+}
 
         /* ==========================================
            2. 글로벌 리셋 & 베이스 스타일
@@ -488,7 +519,12 @@
     </style>
 </head>
 <body>
-    <div id="envelope-wrapper" class="envelope-wrapper">
+    <!-- 예시 HTML -->
+<div class="envelope-container">
+    <!-- 닫힌 봉투 -->
+    <img src="./assets/images/envelope-closed.png" alt="편지봉투" class="envelope-img">
+  </div>
+    <!-- <div id="envelope-wrapper" class="envelope-wrapper">
         <div class="envelope">
             <div class="flap"></div>
             <div class="pocket"></div>
@@ -499,7 +535,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     
     <main id="main-content" class="main-content">
         <div class="wrapper">
