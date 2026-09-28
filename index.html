@@ -17,14 +17,13 @@
 
     <style>
         /* ==========================================
-           1. 편지봉투 오프닝 오버레이 스타일 (수정 및 정돈)
+           1. 편지봉투 오프닝 오버레이 스타일
            ========================================== */
         body.no-scroll {
             overflow: hidden;
             height: 100vh;
         }
 
-        /* 풀스크린 오프닝 백그라운드 오버레이 */
         .envelope-wrapper {
             position: fixed;
             top: 0;
@@ -40,16 +39,14 @@
             cursor: pointer;
         }
 
-        /* 편지봉투 영역 감싸는 컨테이너 */
         .envelope-container {
             position: relative;
             width: 90%;
-            max-width: 420px; /* 모바일 화면에 맞춘 너비 */
+            max-width: 420px;
             margin: 0 auto;
             text-align: center;
         }
 
-        /* 닫힌 편지봉투 이미지 스타일 */
         .envelope-img {
             width: 100%;
             height: auto;
@@ -57,26 +54,12 @@
             margin: 0 auto;
         }
 
-        /* 안에 들어가는 편지지 카드 스타일 (필요 시) */
-        .card-img {
-            width: 85%;
-            height: auto;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-            z-index: 2;
-        }
-
-        /* 페이드아웃 효과 (메인 화면 전환 시) */
         .envelope-wrapper.fade-out {
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
         }
 
-        /* 메인 컨텐츠 노출 및 기본 레이아웃 스타일 */
         .main-content {
             opacity: 0;
             transition: opacity 1s ease;
@@ -304,7 +287,6 @@
             line-height: 1.6;
         }
 
-        /* 아코디언 박스 */
         .accordion-item {
             background-color: #ffffff;
             border-radius: 12px;
@@ -337,7 +319,6 @@
             transform: rotate(180deg);
         }
 
-        /* 열리고 닫히는 애니메이션 영역 */
         .accordion-content {
             max-height: 0;
             overflow: hidden;
@@ -352,7 +333,6 @@
             gap: 12px;
         }
 
-        /* 개별 인물 카드 */
         .acc-card {
             background-color: #ffffff;
             border-radius: 12px;
@@ -378,7 +358,6 @@
             color: #111;
         }
 
-        /* 계좌 정보 박스 */
         .acc-box {
             background-color: #f5f5f5;
             border-radius: 8px;
@@ -440,15 +419,13 @@
     </style>
 </head>
 <body>
-    <!-- 인덱스 인트로 오프닝 영역 (편지봉투) -->
+    <!-- 절대 경로로 지정하여 미리보기/웹사이트 엑박 완전 방지 -->
     <div id="envelope-wrapper" class="envelope-wrapper">
         <div class="envelope-container">
-            <!-- 닫힌 봉투 이미지 (설정하신 상대경로 그대로 유지) -->
-            <img src="./assets/images/envelope-closed.png" alt="편지봉투" class="envelope-img">
+            <img src="https://yonizzang.github.io/wedding/images/envelope-closed.png" alt="편지봉투" class="envelope-img">
         </div>
     </div>
     
-    <!-- 메인 컨텐츠 영역 -->
     <main id="main-content" class="main-content">
         <div class="wrapper">
             <section class="hero">
@@ -457,7 +434,7 @@
                     <span>2026 / 10 / 24</span>
                 </div>
                 <div class="hero-img-box">
-                    <img src="./images/main.jpg" alt="Wedding Film">
+                    <img src="https://yonizzang.github.io/wedding/images/main.jpg" alt="Wedding Film">
                 </div>
                 <div class="hero-title">
                     <h1 class="serif">The Wedding Day</h1>
@@ -480,16 +457,16 @@
                 <span class="section-label serif">Editorial Gallery</span>
                 <div class="gallery-grid">
                     <div class="gallery-item main-cut">
-                        <img src="https://picsum.photos/800/800?random=1" alt="Main Film Cut">
+                        <img src="https://yonizzang.github.io/wedding/images/DSCF9154 중간.jpeg" alt="Main Film Cut">
                     </div>
                     <div class="gallery-item">
-                        <img src="https://picsum.photos/600/800?random=2" alt="Film Cut 1">
+                        <img src="https://yonizzang.github.io/wedding/images/DSCF9200 중간.jpeg" alt="Film Cut 1">
                     </div>
                     <div class="gallery-item">
-                        <img src="https://picsum.photos/600/800?random=3" alt="Film Cut 2">
+                        <img src="https://yonizzang.github.io/wedding/images/DSCF9207 중간.jpeg" alt="Film Cut 2">
                     </div>
                     <div class="gallery-item">
-                        <img src="https://picsum.photos/600/800?random=4" alt="Film Cut 3">
+                        <img src="https://yonizzang.github.io/wedding/images/DSCF9264 중간.jpeg" alt="Film Cut 3">
                     </div>
                 </div>
             </section>
@@ -507,7 +484,6 @@
                 </div>
             </section>
 
-            <!-- 계좌 섹션 -->
             <section class="account-section">
                 <div class="account-header">
                     <h2 class="serif">마음 전하실 곳</h2>
@@ -517,7 +493,6 @@
                     </p>
                 </div>
 
-                <!-- 신랑측 아코디언 -->
                 <div class="accordion-item">
                     <button class="accordion-header" onclick="toggleAccordion(this)">
                         <span>신랑측에게</span>
@@ -525,7 +500,6 @@
                     </button>
                     <div class="accordion-content">
                         <div class="accordion-inner">
-                            <!-- 신랑 -->
                             <div class="acc-card">
                                 <div class="acc-card-header">
                                     <span class="role">신랑</span>
@@ -539,7 +513,6 @@
                                     <button type="button" class="copy-btn" title="복사">📋</button>
                                 </div>
                             </div>
-                            <!-- 신랑 아버지 -->
                             <div class="acc-card">
                                 <div class="acc-card-header">
                                     <span class="role">신랑 아버지</span>
@@ -553,7 +526,6 @@
                                     <button type="button" class="copy-btn" title="복사">📋</button>
                                 </div>
                             </div>
-                            <!-- 신랑 어머니 -->
                             <div class="acc-card">
                                 <div class="acc-card-header">
                                     <span class="role">신랑 어머니</span>
@@ -571,7 +543,6 @@
                     </div>
                 </div>
 
-                <!-- 신부측 아코디언 -->
                 <div class="accordion-item">
                     <button class="accordion-header" onclick="toggleAccordion(this)">
                         <span>신부측에게</span>
@@ -579,7 +550,6 @@
                     </button>
                     <div class="accordion-content">
                         <div class="accordion-inner">
-                            <!-- 신부 -->
                             <div class="acc-card">
                                 <div class="acc-card-header">
                                     <span class="role">신부</span>
@@ -593,7 +563,6 @@
                                     <button type="button" class="copy-btn" title="복사">📋</button>
                                 </div>
                             </div>
-                            <!-- 신부 아버지 -->
                             <div class="acc-card">
                                 <div class="acc-card-header">
                                     <span class="role">신부 아버지</span>
@@ -607,7 +576,6 @@
                                     <button type="button" class="copy-btn" title="복사">📋</button>
                                 </div>
                             </div>
-                            <!-- 신부 어머니 -->
                             <div class="acc-card">
                                 <div class="acc-card-header">
                                     <span class="role">신부 어머니</span>
@@ -631,25 +599,21 @@
     <div id="toast" class="toast-popup">계좌번호가 복사되었습니다.</div>
 
     <script>
-        // 오프닝 애니메이션 제어
         document.addEventListener("DOMContentLoaded", function () {
             document.body.classList.add("no-scroll");
         
             const envelopeWrapper = document.getElementById("envelope-wrapper");
             const mainContent = document.getElementById("main-content");
         
-            // 2초 뒤 메인 서서히 나타남
             setTimeout(() => {
                 if (mainContent) mainContent.classList.add("active");
             }, 2000);
         
-            // 2.8초 뒤 편지봉투 페이드아웃 및 스크롤 해제
             setTimeout(() => {
                 if (envelopeWrapper) envelopeWrapper.classList.add("fade-out");
                 document.body.classList.remove("no-scroll");
             }, 2800);
 
-            // 사용자가 클릭 시 즉시 메인으로 넘어가도록 터치/클릭 이벤트 추가
             if (envelopeWrapper) {
                 envelopeWrapper.addEventListener("click", function () {
                     if (mainContent) mainContent.classList.add("active");
@@ -659,7 +623,6 @@
             }
         });
 
-        // 개별 수동 개폐 처리 (아코디언)
         function toggleAccordion(button) {
             const item = button.parentElement;
             const content = item.querySelector('.accordion-content');
@@ -673,7 +636,6 @@
             }
         }
         
-        // 클립보드 복사 & 토스트 알림
         function copyAccount(text) {
             if (navigator.clipboard && window.isSecureContext) {
                 navigator.clipboard.writeText(text).then(() => {
