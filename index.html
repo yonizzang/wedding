@@ -17,14 +17,13 @@
 
     <style>
         /* ==========================================
-           1. 편지봉투 오프닝 오버레이 & 레퍼런스 모션 애니메이션
+           1. 편지봉투 오프닝 오버레이 (피그마 프레임 비율 연출)
            ========================================== */
         body.no-scroll {
             overflow: hidden;
             height: 100vh;
         }
 
-        /* 풀스크린 오프닝 백그라운드 오버레이 */
         .envelope-wrapper {
             position: fixed;
             top: 0;
@@ -40,7 +39,6 @@
             cursor: pointer;
         }
 
-        /* 편지봉투 영역 감싸는 스테이지 컨테이너 */
         .envelope-container {
             position: relative;
             width: 90%;
@@ -49,68 +47,44 @@
             text-align: center;
         }
 
-        /* 봉투 메인 이미지 (닫힘 -> 열림 연출) */
+        /* 메인 봉투 컷 이미지 (규격 고정) */
         .envelope-img {
             width: 100%;
             height: auto;
             display: block;
             margin: 0 auto;
-            position: relative;
-            z-index: 1; /* 봉투 배경 */
+            transition: transform 0.4s ease-out;
         }
 
-        /* 독립적으로 스멀스멀 올라오는 편지 지(card-inner.png) 레이어 */
-        .card-inner-img {
-            position: absolute;
-            top: 48%; /* 봉투 안쪽 깊은 곳 위치 초기값 */
-            left: 50%;
-            width: 67%; /* index_card_03 내 편지 비율 구현 */
-            transform: translate(-50%, -10%) rotate(0deg);
-            z-index: 2; /* 봉투 속 카드 레이어 */
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.2s ease;
-        }
-
-        /* 레퍼런스 스타일: 편지지가 봉투 속에서 좌우로 살랑거리며 index_card_03 Y축 위치까지 스멀스멀 올라오는 모션 */
-        @keyframes letterSlideUpWiggle {
+        /* 02 -> 03으로 스멀스멀 올라가는 애니메이션 클래스 */
+        @keyframes floatUpWiggle {
             0% {
-                transform: translate(-50%, 15%) rotate(0deg);
-                opacity: 0;
+                transform: translateY(12px) rotate(0deg);
             }
-            15% {
-                opacity: 1;
-                transform: translate(-50%, 5%) rotate(-2.5deg);
+            25% {
+                transform: translateY(6px) rotate(-1.5deg);
             }
-            40% {
-                transform: translate(-50%, -20%) rotate(2deg);
+            50% {
+                transform: translateY(0px) rotate(1.5deg);
             }
-            65% {
-                transform: translate(-50%, -40%) rotate(-1.5deg);
-            }
-            85% {
-                transform: translate(-50%, -55%) rotate(0.8deg);
+            75% {
+                transform: translateY(-4px) rotate(-0.8deg);
             }
             100% {
-                /* index_card_03과 완벽히 동일한 편지 Y축 상단 노출 위치 */
-                transform: translate(-50%, -63%) rotate(0deg);
-                opacity: 1;
+                transform: translateY(0px) rotate(0deg);
             }
         }
 
-        /* 모션 활성화 클래스 */
-        .envelope-container.animate .card-inner-img {
-            animation: letterSlideUpWiggle 1.1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        .envelope-container.wiggle-motion {
+            animation: floatUpWiggle 0.8s ease-in-out forwards;
         }
 
-        /* 페이드아웃 효과 (메인 화면 전환 시) */
         .envelope-wrapper.fade-out {
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
         }
 
-        /* 메인 컨텐츠 노출 및 기본 레이아웃 스타일 */
         .main-content {
             opacity: 0;
             transition: opacity 1s ease;
@@ -124,7 +98,7 @@
         }
 
         /* ==========================================
-           2. 글로벌 리셋 & 베이스 스타일
+           2. 글로벌 리셋 & 메인 페이지 스타일
            ========================================== */
         * {
             margin: 0;
@@ -314,7 +288,7 @@
             opacity: 0.8;
         }
     
-        /* 계좌 섹션 & 아코디언 스타일 */
+        /* 계좌 섹션 & 아코디언 */
         .account-section {
             background-color: #f8f8f8;
             padding: 60px 20px;
@@ -470,17 +444,14 @@
     </style>
 </head>
 <body>
-    <!-- 인덱스 인트로 봉투 영역 -->
+    <!-- 봉투 오프닝 영역 -->
     <div id="envelope-wrapper" class="envelope-wrapper">
         <div id="envelope-container" class="envelope-container">
-            <!-- 1. 봉투 메인 이미지 (index_card_01 -> envelope-open) -->
             <img id="envelope-img" src="https://yonizzang.github.io/wedding/images/index_card_01.png" alt="편지봉투" class="envelope-img">
-            <!-- 2. 봉투 속에서 스멀스멀 올라오는 편지지 이미지 -->
-            <img id="card-inner-img" src="https://yonizzang.github.io/wedding/images/card-inner.png" alt="편지지" class="card-inner-img">
         </div>
     </div>
     
-    <!-- 메인 컨텐츠 영역 -->
+    <!-- 메인 청첩장 컨텐츠 -->
     <main id="main-content" class="main-content">
         <div class="wrapper">
             <section class="hero">
@@ -662,47 +633,55 @@
             const envelopeImg = document.getElementById("envelope-img");
             const mainContent = document.getElementById("main-content");
 
-            // 이미지 끊김 방지를 위한 사전 로딩 (Preload)
+            // 이미지 미리 로드 (깜빡임 방지)
             const imgOpen = new Image();
             imgOpen.src = "https://yonizzang.github.io/wedding/images/envelope-open.png";
-            const imgCard = new Image();
-            imgCard.src = "https://yonizzang.github.io/wedding/images/card-inner.png";
+            
+            const imgCard02 = new Image();
+            imgCard02.src = "https://yonizzang.github.io/wedding/images/index_card_02.png";
+
+            const imgCard03 = new Image();
+            imgCard03.src = "https://yonizzang.github.io/wedding/images/index_card_03.png";
 
             let isOpening = false;
 
-            function playEnvelopeAnimation() {
+            function playAnimationSequence() {
                 if (isOpening) return;
                 isOpening = true;
 
-                // 1. 봉투 뚜껑이 열림 (envelope-open.png 교체)
+                // Step 1: index_card_01 -> envelope-open (뚜껑 열림)
                 envelopeImg.src = imgOpen.src;
 
-                // 2. 0.35초 후 편지지가 좌우로 살랑거리며 위로 올라오는 스멀스멀 애니메이션 실행
+                // Step 2: envelope-open -> index_card_02 (편지 살짝 비침)
                 setTimeout(() => {
-                    if (envelopeContainer) envelopeContainer.classList.add("animate");
-                }, 350);
+                    envelopeImg.src = imgCard02.src;
+                }, 300);
 
-                // 3. 편지가 완전히 올라온 후 메인 컨텐츠 활성화
+                // Step 3: index_card_02 -> index_card_03 (스멀스멀 흔들리며 위로 이동 & index_card_03 위치 교체 고정!)
+                setTimeout(() => {
+                    if (envelopeContainer) envelopeContainer.classList.add("wiggle-motion");
+                    envelopeImg.src = imgCard03.src;
+                }, 600);
+
+                // Step 4: 메인 컨텐츠 노출 준비
                 setTimeout(() => {
                     if (mainContent) mainContent.classList.add("active");
-                }, 1500);
+                }, 1400);
 
-                // 4. 오프닝 덮개 페이드아웃 및 스크롤 해제
+                // Step 5: 오프닝 닫기 & 스크롤 해제
                 setTimeout(() => {
                     if (envelopeWrapper) envelopeWrapper.classList.add("fade-out");
                     document.body.classList.remove("no-scroll");
-                }, 2300);
+                }, 2200);
             }
 
-            // 클릭 시 애니메이션 실행
             if (envelopeWrapper) {
-                envelopeWrapper.addEventListener("click", playEnvelopeAnimation);
+                envelopeWrapper.addEventListener("click", playAnimationSequence);
             }
 
-            // 자동 시작 타이머 (0.6초 후 실행)
             setTimeout(() => {
-                playEnvelopeAnimation();
-            }, 600);
+                playAnimationSequence();
+            }, 500);
         });
 
         function toggleAccordion(button) {
