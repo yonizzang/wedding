@@ -3,7 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>WEDDING INVITATION</title>
+    <title>상훈과 연희의 결혼식에 초대합니다</title>
+
+    <!-- 카카오톡 및 메신저 공유 OG(Open Graph) 메타태그 -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yonizzang.github.io/wedding/">
+    <meta property="og:title" content="상훈과 연희의 결혼식에 초대합니다">
+    <meta property="og:description" content="2026. 11. 21. SAT. 11:30AM. 틸티드한남">
+    <meta property="og:image" content="https://yonizzang.github.io/wedding/images/og_ver3.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter Card 메타태그 -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="상훈과 연희의 결혼식에 초대합니다">
+    <meta name="twitter:description" content="2026. 11. 21. SAT. 11:30AM. 틸티드한남">
+    <meta name="twitter:image" content="https://yonizzang.github.io/wedding/images/og_ver3.jpg">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,7 +35,7 @@
 
         body {
             font-family: "Pretendard Variable", Pretendard, sans-serif;
-            background-color: #0d0d0d;
+            background-color: #F1EBE6;
             color: #1a1a1a;
             display: flex;
             justify-content: center;
@@ -45,7 +60,7 @@
             width: 100vw;
             height: 100vh;
             height: 100dvh;
-            background-color: #0d0d0d;
+            background-color: #F1EBE6;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -108,7 +123,7 @@
             background-color: #f8f6f0;
             min-height: 100vh;
             position: relative;
-            box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.08);
             overflow-x: hidden;
         }
 
@@ -263,7 +278,7 @@
             width: 100vw;
             height: 100vh;
             height: 100dvh;
-            background-color: #000000 !important;
+            background-color: #F1EBE6 !important;
             z-index: 9999999;
             display: none;
             justify-content: center;
@@ -279,14 +294,17 @@
 
         .lightbox-content-wrap {
             position: relative;
+            width: 100%;
             max-width: 100%;
             max-height: 78vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #000000 !important;
+            background-color: transparent !important;
             overflow: hidden;
             user-select: none;
+            border: none !important;
+            box-shadow: none !important;
         }
 
         .lightbox-image {
@@ -294,11 +312,12 @@
             max-height: 78vh;
             object-fit: contain;
             display: block;
-            background-color: #000000 !important;
+            background-color: transparent !important;
             border: none !important;
-            outline: 1px solid #000000 !important;
-            outline-offset: -1px;
-            box-shadow: 0 0 0 1px #000000 !important;
+            outline: none !important;
+            box-shadow: none !important;
+            margin: 0 auto;
+            mix-blend-mode: multiply; /* 이미지의 배경과 모달 배경 조화 */
         }
 
         .lightbox-close {
@@ -319,13 +338,15 @@
             height: 22px !important;
             display: block;
             object-fit: contain;
+            filter: invert(53%) sepia(0%) saturate(0%) hue-rotate(188deg) brightness(95%) contrast(89%); /* #7E7E7E 컬러 적용 */
         }
 
         .lightbox-counter {
-            color: #fff;
+            color: #1a1a1a;
             font-size: 14px;
             margin-bottom: 15px;
             letter-spacing: 1px;
+            font-weight: 500;
         }
 
         .lightbox-nav {
@@ -346,6 +367,7 @@
             height: 22px !important;
             display: block;
             object-fit: contain;
+            filter: invert(53%) sepia(0%) saturate(0%) hue-rotate(188deg) brightness(95%) contrast(89%); /* #7E7E7E 컬러 적용 */
         }
 
         .lightbox-prev { left: 8px; }
