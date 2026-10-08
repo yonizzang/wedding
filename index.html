@@ -131,6 +131,7 @@
         section.invitation,
         section.greeting,
         section.calendar,
+        section.information,
         section.thankyou {
             padding: 0 !important;
             border-bottom: none !important;
@@ -143,6 +144,7 @@
         section.invitation img,
         section.greeting img,
         section.calendar img,
+        section.information img,
         section.thankyou img {
             width: 100%;
             height: auto;
@@ -317,7 +319,7 @@
             outline: none !important;
             box-shadow: none !important;
             margin: 0 auto;
-            mix-blend-mode: multiply; /* 이미지의 배경과 모달 배경 조화 */
+            mix-blend-mode: multiply;
         }
 
         .lightbox-close {
@@ -338,7 +340,7 @@
             height: 22px !important;
             display: block;
             object-fit: contain;
-            filter: invert(53%) sepia(0%) saturate(0%) hue-rotate(188deg) brightness(95%) contrast(89%); /* #7E7E7E 컬러 적용 */
+            filter: invert(53%) sepia(0%) saturate(0%) hue-rotate(188deg) brightness(95%) contrast(89%);
         }
 
         .lightbox-counter {
@@ -367,7 +369,7 @@
             height: 22px !important;
             display: block;
             object-fit: contain;
-            filter: invert(53%) sepia(0%) saturate(0%) hue-rotate(188deg) brightness(95%) contrast(89%); /* #7E7E7E 컬러 적용 */
+            filter: invert(53%) sepia(0%) saturate(0%) hue-rotate(188deg) brightness(95%) contrast(89%);
         }
 
         .lightbox-prev { left: 8px; }
@@ -589,6 +591,10 @@
                 <div class="account-bottom-bar">
                     <img src="https://yonizzang.github.io/wedding/images/bottom_bar.png" alt="구분선">
                 </div>
+            </section>
+
+            <section class="information">
+                <img src="https://yonizzang.github.io/wedding/images/information_03.png" alt="Information">
             </section>
 
             <section class="thankyou">
